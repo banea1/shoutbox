@@ -24,7 +24,7 @@ app.configure(function(){
   app.use(express.cookieParser('your secret here'));
   app.use(express.session());
   app.use(express.static(path.join(__dirname, 'public')));
-  app.user(user);
+  app.use(user);
   app.use(messages);
   app.use(app.router);  
 });
