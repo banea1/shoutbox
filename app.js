@@ -30,6 +30,9 @@ app.configure('development', function(){
   app.use(express.errorHandler());
 });
 
+app.get('/',function(req, res){
+  res.end('Success!!!');
+});
 app.get('/register', register.form);
 app.post('/register', register.submit);
 
