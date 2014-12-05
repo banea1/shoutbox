@@ -7,7 +7,8 @@ var express = require('express')
   , register = require('./routes/register')
   , http = require('http')
   , path = require('path')
-  , messages = require('./lib/messages');
+  , messages = require('./lib/messages')
+  , login = require('./routes/login');
 
 var app = express();
 
@@ -33,8 +34,13 @@ app.configure('development', function(){
 app.get('/',function(req, res){
   res.end('Success!!!');
 });
+
 app.get('/register', register.form);
 app.post('/register', register.submit);
+
+app.get('/login', login.form);
+app.post('/login', login.submit);
+app.get('/logout', login.logout);
 
 http.createServer(app).listen(app.get('port'), function(){
   console.log("Express server listening on port " + app.get('port'));
