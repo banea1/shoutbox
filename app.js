@@ -8,7 +8,8 @@ var express = require('express')
   , http = require('http')
   , path = require('path')
   , messages = require('./lib/messages')
-  , login = require('./routes/login');
+  , login = require('./routes/login')
+  , user = require('./lib/middleware/user');
 
 var app = express();
 
@@ -22,9 +23,10 @@ app.configure(function(){
   app.use(express.methodOverride());
   app.use(express.cookieParser('your secret here'));
   app.use(express.session());
-  app.use(messages);
-  app.use(app.router);
   app.use(express.static(path.join(__dirname, 'public')));
+  app.user(user);
+  app.use(messages);
+  app.use(app.router);  
 });
 
 app.configure('development', function(){
