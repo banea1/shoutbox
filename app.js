@@ -6,7 +6,8 @@
 var express = require('express')
   , register = require('./routes/register')
   , http = require('http')
-  , path = require('path');
+  , path = require('path')
+  , messages = require('./lib/messages');
 
 var app = express();
 
@@ -20,6 +21,7 @@ app.configure(function(){
   app.use(express.methodOverride());
   app.use(express.cookieParser('your secret here'));
   app.use(express.session());
+  app.use(messages);
   app.use(app.router);
   app.use(express.static(path.join(__dirname, 'public')));
 });
