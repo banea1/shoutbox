@@ -10,7 +10,8 @@ var express = require('express')
   , messages = require('./lib/messages')
   , login = require('./routes/login')
   , user = require('./lib/middleware/user')
-  , entries = require('./routes/entries');
+  , entries = require('./routes/entries')
+  , validate = require('./lib/middleware/validate');
 
 var app = express();
 
@@ -44,7 +45,10 @@ app.post('/login', login.submit);
 app.get('/logout', login.logout);
 
 app.get('/post', entries.form);
-app.post('/post', entries.submit);
+app.post('/post',
+  validate.required('entry[title]'),
+  validate.lengthAbove('entry[title]', 4),
+  entries.submit);
 
 http.createServer(app).listen(app.get('port'), function(){
   console.log("Express server listening on port " + app.get('port'));

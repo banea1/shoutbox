@@ -16,5 +16,16 @@ exports.form = function(req, res){
 };
 
 exports.submit = function(res, res, next){
+  var data = req.body.entry;
 
+  var entry = new Entry({
+    userusername: res.locals.user.name;
+    title: data.title;
+    body: data.body
+  });
+
+  entry.save(function(err){
+    if(err) return next(err);
+    res.redirect('/');
+  });
 };
