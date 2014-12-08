@@ -9,7 +9,8 @@ var express = require('express')
   , path = require('path')
   , messages = require('./lib/messages')
   , login = require('./routes/login')
-  , user = require('./lib/middleware/user');
+  , user = require('./lib/middleware/user')
+  , entries = require('./routes/entries');
 
 var app = express();
 
@@ -33,9 +34,7 @@ app.configure('development', function(){
   app.use(express.errorHandler());
 });
 
-app.get('/',function(req, res){
-  res.end('Success!!!');
-});
+app.get('/', entries.list);
 
 app.get('/register', register.form);
 app.post('/register', register.submit);
