@@ -9,6 +9,7 @@
 
     <h1><%= title %></h1>
     <p>Fill in the below form to add a new post</p>
+    <% include messages %>
     <form action='/post' method='post'>
       <p><input type='text' name='entry[title]' placeholder='Title' /></p>
       <p><textarea name='entry[body]' placeholder='Body'></textarea></p>

@@ -15,12 +15,12 @@ exports.form = function(req, res){
   res.render('post', {title: 'Post'});
 };
 
-exports.submit = function(res, res, next){
+exports.submit = function(req, res, next){
   var data = req.body.entry;
 
   var entry = new Entry({
-    userusername: res.locals.user.name;
-    title: data.title;
+    username: res.locals.user.name,
+    title: data.title,
     body: data.body
   });
 
