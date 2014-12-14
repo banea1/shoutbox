@@ -13,7 +13,7 @@ var express = require('express')
   , entries = require('./routes/entries')
   , validate = require('./lib/middleware/validate')
   , page = require('./lib/middleware/page')
-  , Enrty = require('./lib/entry');
+  , Entry = require('./lib/entry');
 
 var app = express();
 
