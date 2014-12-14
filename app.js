@@ -11,7 +11,9 @@ var express = require('express')
   , login = require('./routes/login')
   , user = require('./lib/middleware/user')
   , entries = require('./routes/entries')
-  , validate = require('./lib/middleware/validate');
+  , validate = require('./lib/middleware/validate')
+  , page = require('./lib/middleware/page')
+  , Enrty = rqeuire('./lib/entry');
 
 var app = express();
 
@@ -35,7 +37,7 @@ app.configure('development', function(){
   app.use(express.errorHandler());
 });
 
-app.get('/', entries.list);
+app.get('/', page(Entry.count, 5), entries.list);
 
 app.get('/register', register.form);
 app.post('/register', register.submit);
