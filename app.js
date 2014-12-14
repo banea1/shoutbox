@@ -13,7 +13,8 @@ var express = require('express')
   , entries = require('./routes/entries')
   , validate = require('./lib/middleware/validate')
   , page = require('./lib/middleware/page')
-  , Entry = require('./lib/entry');
+  , Entry = require('./lib/entry')
+  , api = require('./routes/api');
 
 var app = express();
 
@@ -28,6 +29,7 @@ app.configure(function(){
   app.use(express.cookieParser('your secret here'));
   app.use(express.session());
   app.use(express.static(path.join(__dirname, 'public')));
+  app.use('/api', api.auth);
   app.use(user);
   app.use(messages);
   app.use(app.router);  
@@ -51,6 +53,8 @@ app.post('/post',
   validate.required('entry[title]'),
   validate.lengthAbove('entry[title]', 4),
   entries.submit);
+
+app.get('/api/user/:id', api.user);
 
 http.createServer(app).listen(app.get('port'), function(){
   console.log("Express server listening on port " + app.get('port'));
