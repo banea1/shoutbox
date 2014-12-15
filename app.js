@@ -56,6 +56,7 @@ app.post('/post',
 
 app.get('/api/user/:id', api.user);
 app.post('/api/entry', entries.submit);
+app.get('/api/entries/page:?', page(Entry.count), api.entries);
 
 http.createServer(app).listen(app.get('port'), function(){
   console.log("Express server listening on port " + app.get('port'));
