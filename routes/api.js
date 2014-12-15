@@ -15,7 +15,23 @@ exports.user = function(req, res, next){
 exports.entries = function(req, res, next){
   var page = req.page;
   Entry.getRange(page.from, page.to, function(err, entries){
-  if (err) return next(err);
-  res.json(entries);
+    if (err) return next(err);
+    
+    res.format({
+      'application/json' : function(){
+        res.json(entries);
+      },
+      'application/xml' : function(){
+        res.write('<entries>\n');
+        entries.forEach(function(entry){
+          res.write('<entry>\n');
+          res.write(' <title>' + entry.title + '</title>\n');
+          res.write(' <body>' + entry.body + '</body>\n');
+          res.write(' <username>' + entry.username + '</username>\n');
+          res.write('</entry>\n');
+        });
+        res.send('</entries>');
+      }
+    });  
   });
 };
