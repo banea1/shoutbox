@@ -30,7 +30,7 @@ exports.entries = function(req, res, next){
           res.write(' <username>' + entry.username + '</username>\n');
           res.write('</entry>\n');
         });
-        res.send('</entries>');
+        res.end('</entries>');
       }
     });  
   });
